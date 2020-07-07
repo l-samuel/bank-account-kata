@@ -21,6 +21,12 @@ public class AccountService implements BankAccount {
         transactions.add(new Transaction(amount, localDateTime));
     }
 
+    @Override
+    public void withdrawal(final long amount) {
+        LocalDateTime localDateTime = date.getTime();
+        transactions.add(new Transaction(-amount, localDateTime));
+    }
+
     public List<Transaction> getTransactions() {
         return transactions;
     }

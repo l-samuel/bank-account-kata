@@ -60,11 +60,31 @@ public class AccountServiceTest {
         assertThat(accountService.getTransactions()).containsAll(expectedTransaction);
     }
 
+    @Test
+    void should_add_transaction_with_negative_amount_when_user_make_a_withdrawal() {
+        //given
+        long withdrawalAmount = 400;
+        //when
+        accountService.withdrawal(withdrawalAmount);
+        //then
+        List<Transaction> expectedTransaction = initTransactions(new long[]{100, -400});
+        assertThat(accountService.getTransactions()).containsAll(expectedTransaction);
+    }
 
+    @Test
+    void should_add_transaction_with_negative_amount_by_withdrawal() {
+        //given
+        //when
+        accountService.withdrawal(400);
+        accountService.withdrawal(800);
+        //then
+        List<Transaction> expectedTransaction = initTransactions(new long[]{100, -400,-800});
+        assertThat(accountService.getTransactions()).containsAll(expectedTransaction);
+    }
 
     private List<Transaction> initTransactions(final long amounts[]) {
         return Arrays.stream(amounts)
-                .mapToObj(amount -> new Transaction(amount,timestamp))
+                .mapToObj(amount -> new Transaction(amount, timestamp))
                 .collect(Collectors.toList());
     }
 }
