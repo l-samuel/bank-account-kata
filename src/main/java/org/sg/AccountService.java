@@ -15,14 +15,14 @@ public class AccountService implements BankAccount {
         this.date = date;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
     @Override
     public void deposit(final long amount) {
         LocalDateTime localDateTime = date.getTime();
         transactions.add(new Transaction(amount, localDateTime));
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
 }
