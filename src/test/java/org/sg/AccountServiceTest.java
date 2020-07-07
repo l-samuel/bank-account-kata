@@ -1,7 +1,7 @@
+package org.sg;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.sg.AccountService;
-import org.sg.DateTime;
 import org.sg.model.Transaction;
 
 import java.time.LocalDateTime;
@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.*;
 
 
 public class AccountServiceTest {
@@ -21,10 +20,11 @@ public class AccountServiceTest {
 
     private AccountService accountService;
     private LocalDateTime timestamp = LocalDateTime.now();
+    private Printer printer = mock(Printer.class);
 
     @BeforeEach
     void setUp() {
-        accountService = new AccountService(initTransactions(new long[]{100}), dateTime);
+        accountService = new AccountService(initTransactions(new long[]{100}), dateTime, printer);
         when(dateTime.getTime()).thenReturn(timestamp);
     }
 
@@ -80,6 +80,18 @@ public class AccountServiceTest {
         //then
         List<Transaction> expectedTransaction = initTransactions(new long[]{100, -400,-800});
         assertThat(accountService.getTransactions()).containsAll(expectedTransaction);
+    }
+
+
+    @Test
+    void accountService_should_print_all_transactions_with_balance(){
+
+        //given
+        //when
+        accountService.printStatements();
+        //then
+        then(printer).should(times(1)).printStatements();
+
     }
 
     private List<Transaction> initTransactions(final long amounts[]) {

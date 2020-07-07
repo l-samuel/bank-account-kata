@@ -9,10 +9,13 @@ public class AccountService implements BankAccount {
 
     private final DateTime date;
     private List<Transaction> transactions;
+    private final Printer printer;
 
-    public AccountService(final List<Transaction> transactions, final DateTime date) {
+
+    public AccountService(final List<Transaction> transactions, final DateTime date, final Printer printer) {
         this.transactions = transactions;
         this.date = date;
+        this.printer = printer;
     }
 
     @Override
@@ -31,4 +34,7 @@ public class AccountService implements BankAccount {
         return transactions;
     }
 
+    public void printStatements() {
+        printer.printStatements();
+    }
 }
