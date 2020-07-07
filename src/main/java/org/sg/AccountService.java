@@ -35,6 +35,6 @@ public class AccountService implements BankAccount {
     }
 
     public void printStatements() {
-        printer.printStatements();
+        printer.printStatements(getTransactions());
     }
 }

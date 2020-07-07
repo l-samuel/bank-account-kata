@@ -15,7 +15,6 @@ import static org.mockito.BDDMockito.*;
 
 public class AccountServiceTest {
 
-
     private DateTime dateTime = mock(DateTime.class);
 
     private AccountService accountService;
@@ -90,11 +89,10 @@ public class AccountServiceTest {
         //when
         accountService.printStatements();
         //then
-        then(printer).should(times(1)).printStatements();
-
+        then(printer).should(times(1)).printStatements(initTransactions(new long[]{100}));
     }
 
-    private List<Transaction> initTransactions(final long amounts[]) {
+    private List<Transaction> initTransactions(final long[] amounts) {
         return Arrays.stream(amounts)
                 .mapToObj(amount -> new Transaction(amount, timestamp))
                 .collect(Collectors.toList());

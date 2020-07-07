@@ -14,6 +14,14 @@ public class Transaction {
         this.date = date;
     }
 
+    public long getAmount() {
+        return amount;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
