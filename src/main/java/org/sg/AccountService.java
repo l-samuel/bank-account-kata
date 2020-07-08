@@ -1,6 +1,6 @@
 package org.sg;
 
-import org.sg.model.Transaction;
+import org.sg.transaction.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class AccountService implements BankAccount {
 
     private final DateTime date;
-    private List<Transaction> transactions;
+    private final List<Transaction> transactions;
     private final Printer printer;
 
 
@@ -30,11 +30,11 @@ public class AccountService implements BankAccount {
         transactions.add(new Transaction(-amount, localDateTime));
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public void printStatements() {
+        printer.printStatements(transactions);
     }
 
-    public void printStatements() {
-        printer.printStatements(getTransactions());
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 }

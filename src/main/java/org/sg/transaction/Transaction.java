@@ -1,4 +1,4 @@
-package org.sg.model;
+package org.sg.transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

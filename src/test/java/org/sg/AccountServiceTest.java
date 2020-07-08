@@ -2,7 +2,7 @@ package org.sg;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.sg.model.Transaction;
+import org.sg.transaction.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
