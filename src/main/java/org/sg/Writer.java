@@ -1,5 +1,5 @@
 package org.sg;
 
-public interface OutputConsole {
+public interface Writer {
     void print(String message);
 }

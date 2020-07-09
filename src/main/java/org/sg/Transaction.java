@@ -1,20 +1,20 @@
-package org.sg.transaction;
+package org.sg;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Transaction {
+public final class Transaction {
 
-    private long amount;
+    private final Amount amount;
 
-    private LocalDateTime date;
+    private final LocalDateTime date;
 
-    public Transaction(final long amount, final LocalDateTime date) {
+    public Transaction(final Amount amount, final LocalDateTime date) {
         this.amount = amount;
         this.date = date;
     }
 
-    public long getAmount() {
+    public Amount getAmount() {
         return amount;
     }
 
@@ -27,7 +27,7 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return amount == that.amount &&
+        return Objects.equals(amount, that.amount) &&
                 Objects.equals(date, that.date);
     }
 
@@ -39,7 +39,7 @@ public class Transaction {
     @Override
     public String toString() {
         return "Transaction{" +
-                "amount=" + amount +
+                "amount=" + getAmount().getValue() +
                 ", date=" + date +
                 '}';
     }

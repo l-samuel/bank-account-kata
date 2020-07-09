@@ -3,8 +3,8 @@ package org.sg;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.sg.transaction.Transaction;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.util.Lists.emptyList;
@@ -14,15 +14,15 @@ import static org.mockito.Mockito.times;
 
 class PrinterTest {
 
-    private OutputConsole console;
+    private Writer console;
     private Printer printer;
-    private TransactionFormatter transactionFormatter;
+    private TransactionsFormatter transactionsFormatter;
 
     @BeforeEach
     void setUp() {
-        transactionFormatter = new TransactionFormatter();
-        console = Mockito.mock(OutputConsole.class);
-        printer = new Printer(console, transactionFormatter);
+        transactionsFormatter = new TransactionsFormatter();
+        console = Mockito.mock(Writer.class);
+        printer = new Printer(console, transactionsFormatter);
     }
 
     @Test
@@ -37,7 +37,7 @@ class PrinterTest {
     @Test
     void should_print_all_transactions_with_header_one_transaction() {
         //given
-        Transaction deposit = new Transaction(100, LocalDateTime.of(2020, 7, 7, 0, 0));
+        Transaction deposit = new Transaction(new Amount(BigDecimal.valueOf(100,2)), LocalDateTime.of(2020, 7, 7, 0, 0));
         //when
         printer.printStatements(list(deposit));
         //then
@@ -46,11 +46,11 @@ class PrinterTest {
     }
 
     @Test
-    void should_print_all_transactions_with_balance_by_descending_order_several_transactions() {
+    void should_print_all_transactions_with_header_by_descending_order_several_transactions() {
         //given
-        Transaction deposit = new Transaction(10000, LocalDateTime.of(2020, 7, 6, 0, 0));
-        Transaction deposit2 = new Transaction(15000, LocalDateTime.of(2020, 7, 7, 0, 0));
-        Transaction withdrawal = new Transaction(-5000, LocalDateTime.of(2020, 7, 7, 12, 0));
+        Transaction deposit = new Transaction(new Amount(BigDecimal.valueOf(10000,2)), LocalDateTime.of(2020, 7, 6, 0, 0));
+        Transaction deposit2 = new Transaction(new Amount(BigDecimal.valueOf(15000,2)), LocalDateTime.of(2020, 7, 7, 0, 0));
+        Transaction withdrawal = new Transaction(new Amount(BigDecimal.valueOf(-5000,2)), LocalDateTime.of(2020, 7, 7, 12, 0));
         //when
         printer.printStatements(list(deposit, deposit2, withdrawal));
         //then

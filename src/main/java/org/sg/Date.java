@@ -1,4 +1,4 @@
-package org.sg.date;
+package org.sg;
 
 import org.sg.DateTime;
 
